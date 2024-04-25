@@ -1,9 +1,3 @@
-
-
-const btnPost = document.getElementById("post")
-const formHTML = document.getElementById("form")
-const listaHTML = document.getElementById("lista-usuario")
-
 let listaUsuarios = [
     {
         name: "pepito", email: "pepito@gmail.com", id: 1,
@@ -29,17 +23,90 @@ let listaUsuarios = [
 ]
 
 
+//** OBTENER EL BOTON DE FORMULARIO, FORMULARIO Y LISTA DE USUARIOS DEL HTML */
+const btnPost = document.getElementById("post")
+const formHTML = document.getElementById("form")
+const listaHTML = document.getElementById("lista-usuario")
+
+//LLAMAR A TODOS LOS USUARIOS
+
+function getUsuarios() {
+    
+    return listaUsuarios;
+}
+
+
+//LLAMAR A UN USUARIO
+function getUsuario(id) {
+    const lista = getUsuarios()
+    let usuario = lista.filter(e => e.id == id)
+    return usuario;
+}
+
+// CREAR UN USUARIO
+function postUser() {
+
+    //!SELECCIONAR TODOS LOS VALORES DLE FORMULARIO
+
+    const emailInput = document.getElementById("email").value
+    const nameInput = document.getElementById("name").value
+    const idInput = document.getElementById("id").value
+
+    //? ACTUALIZAR LISTA DE USUARIOS
+    const lista = getUsuarios()
+
+    //TODO VERIFICAR QUE EL USUARIO NO ESTE REPETIDO
+
+    const idRepetido = listaUsuarios.find(e => e.id == idInput);
+
+
+    //**SI NO ESTA REPETIDO ENTONCES SE PROCEDE A CREARLO */
+
+    if (!idRepetido) {
+
+        let nuevoUsuario = {
+            name: nameInput,
+            email: emailInput,
+            id: idInput,
+        }
+
+        //**AGREGAR EL USUARIO A LA LISTA */
+        lista.push(nuevoUsuario)
+
+        //**DESPLEGARLOS EN EL HTML */
+        desplegarUsuarios()
+        return
+    }
+
+    alert("el usuario esta repetido")
+}
 
 
 
-//{ => {}}
+//ELIMINAR A UN USUARIO
+
+function eliminarUsuario(id) {
+
+    //? ACTUALIZAR LISTA DE USUARIOS
+    const lista = getUsuarios()
+
+    //** OBTENER USUARIO*/
+    const usuario = getUsuario(parseInt(id))
+    
+    //** OBTENER EL INDICE USUARIO DENTRO DEL ARREGLO*/
+    const indice = lista.indexOf(...usuario)
+
+    if (indice != -1) {
+        lista.splice(indice, 1);
+    }
+    desplegarUsuarios()
+}
+
+
 
 formHTML.addEventListener("submit", e => {
     e.preventDefault()
-
     postUser()
-
-
 })
 
 
@@ -88,41 +155,7 @@ document.addEventListener("DOMContentLoaded", e => {
     desplegarUsuarios()
 })
 
-function postUser() {
 
-    const emailInput = document.getElementById("email").value
-    const nameInput = document.getElementById("name").value
-    const idInput = document.getElementById("id").value
-    const idRepetido = listaUsuarios.find(e => e.id == idInput);
-    if (!idRepetido) {
-        let nuevoUsuario = {
-            name: nameInput,
-            email: emailInput,
-            id: idInput,
-        }
-        listaUsuarios.push(nuevoUsuario)
-        desplegarUsuarios()
-        return
-    }
-    alert("el usuario esta repetido")
-
-
-}
-
-function eliminarUsuario(id) {
-
-    const lista = getUsuarios()
-    const usuario = getUsuario(parseInt(id))
-    const indice = lista.indexOf(...usuario)
-    console.log(indice);
-    if (indice != -1) {
-        lista.splice(indice, 1);
-    } else {
-      console.warn("Usuario con ID", id, "no encontrado");
-    }
-    console.log(lista);
-    desplegarUsuarios()
-}
 
 
 // C R U D
@@ -132,17 +165,6 @@ function eliminarUsuario(id) {
 // DELETE 
 
 //declaradas
-
-function getUsuarios() {
-
-    return listaUsuarios;
-}
-
-function getUsuario(id) {
-    const lista = getUsuarios()
-    let usuario = lista.filter(e => e.id == id)
-    return usuario;
-}
 
 
 
