@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>CRUD</title>
 </head>
 <body>
@@ -20,13 +21,23 @@
                 <label for="#id">Identificador</label>
                 <input id="id" type="number">
             </div>
-            <button onclick="postUser()" id="post">Crear Nuevo Usuario </button>
+            <button type="submit" id="post">Crear Nuevo Usuario </button>
         </form>
-        
+    
     </div>
 
     <ul id="lista-usuario">
-        
+        <li>
+            <div>
+                <h3>Pepito</h3>
+                <small>email</small>
+                <b>id</b>
+            </div>
+            <div>
+                <button>Eliminar</button>
+                <button>Editar</button>
+            </div>
+        </li>
     </ul>
 
     <script src="./crud.js"></script>
